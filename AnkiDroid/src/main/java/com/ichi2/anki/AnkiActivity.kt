@@ -74,6 +74,7 @@ import com.ichi2.libanki.Collection
 import com.ichi2.themes.Themes
 import com.ichi2.utils.AdaptionUtil
 import com.ichi2.utils.KotlinCleanup
+import com.ichi2.utils.StartIntentUtil
 import timber.log.Timber
 import androidx.browser.customtabs.CustomTabsIntent.Builder as CustomTabsIntentBuilder
 
@@ -369,10 +370,15 @@ open class AnkiActivity : AppCompatActivity, SimpleMessageDialogListener, Shortc
 
     /** The action to take when there was an error loading the collection  */
     fun onCollectionLoadError() {
-        val deckPicker = Intent(this, DeckPicker::class.java)
-        deckPicker.putExtra("collectionLoadError", true) // don't currently do anything with this
-        deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(deckPicker)
+        //val deckPicker = Intent(this, DeckPicker::class.java)
+        //deckPicker.putExtra("collectionLoadError", true) // don't currently do anything with this
+        //deckPicker.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        //startActivity(deckPicker)
+        val extras = Bundle().apply {
+            putBoolean("collectionLoadError", true)
+        }
+        StartIntentUtil.startWithClearTop(this, DeckPicker::class.java, extras)
+
     }
 
     fun showProgressBar() {
